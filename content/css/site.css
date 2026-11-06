@@ -13,13 +13,28 @@
 
 html {
     scroll-behavior: smooth;
+    font-size: 14px;
 }
 
 body {
     margin: 0;
     background: #f7f7f7;
     color: var(--text);
+    font-size: 1.2rem;
+    line-height: 1.3;
     font-family: 'HelveticaNeue', sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'RomanAntique', serif;
+}
+
+h1,h2,h3,h4,h5,h6,p {
+    margin-top: 0;
+}
+
+p:last-child {
+    margin-bottom: 0;
 }
 
 img {
@@ -32,34 +47,35 @@ a {
     text-decoration: none;
 }
 
-
-
-/* HEADER */
+/* ==========================================================================
+	Header
+========================================================================== */
 
 .site-header {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;   
+    width: 100%;
     z-index: 10;
-    background: var(--black);
-    color: white;
-    padding: 0 5%;
+    padding: 1.5rem 0;
+    background: #161616;
 }
 
-.site-nav {
-    min-height: 65px;
+.site-header .container {
+    max-width: 40rem;
+}
+
+.site-nav{
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 100px;
-    border-bottom: 1px solid rgba(255,255,255,.12);
+    justify-content: space-between;
 }
 
 .site-nav a {
-    font-family: 'HelveticaNeue', sans-serif;
-    font-size: 11px;
+    font-size: 1.25rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: white;
-    opacity: .8;
+    color: #DBDBDB;
 }
 
 .site-nav a:hover,
@@ -68,68 +84,70 @@ a {
 }
 
 
-/* HERO */
+/* ==========================================================================
+	Hero Banner
+========================================================================== */
 
-.hero-section {
+.hero-banner {
     position: relative;
-    padding: 55px 5% 65px;
+    padding: 8rem 0;
     overflow: hidden;
-    color: white;
-    background-color: var(--black);
-    background-image: url('../images/dark-texture.jpg');
-    background-repeat: repeat;
-    background-size: 500px auto;
+    color: #DBDBDB;
+    min-height: 120vh;
+    background: #161616 url('../images/repressed-love-hero-bg.jpg') no-repeat center center;
+    background-size: cover;
 }
 
-.hero-main {
-    position: relative;
-    display: grid;
-    grid-template-columns: 42% 58%;
-    min-height: 520px;
+.hero__img img {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    max-height: 81%;
 }
 
-.hero-info {
-    position: relative;
-    z-index: 3;
-    padding-top: 10px;
-}
-
-.hero-title {
+.hero__title {
+    max-width: 62vw;
+    padding: 0 3vw;
     width: 100%;
-    max-width: 490px;
-    margin-bottom: 35px;
 }
 
-.course-details {
+.hero__x {
+    top: 23%;
+    left: 25%;
+    max-width: 13vw;
+    z-index: 1;
+}
+
+.hero__heart {
+    top: 12%;
+    right: 23%;
+    max-width: 6vw;
+}
+
+.hero__graffiti {
+right: -3vw;
+    top: 5rem;
+    max-width: 18vw;
+}
+
+
+.hero__info {
     display: grid;
     grid-template-columns: 1.1fr 1fr .6fr;
     gap: 15px;
-    max-width: 370px;
-    margin-bottom: 25px;
-    font-family: 'RomanAntique', serif;
-    font-size: 11px;
-    line-height: 1.4;
+    max-width: 50vw;
+    margin: 3rem 0;
 }
 
-.course-details span {
-    display: block;
-    margin-bottom: 5px;
-    color: #aaa;
+.hero__info h2 {
+   font-size: 1.4rem;
+   font-weight: 400;
+   margin-bottom: 0.1rem;
 }
 
-.course-details p {
-    margin: 0;
-}
 
-.hero-description {
-    max-width: 390px;
-    font-family: 'RomanAntique', serif;
-    font-size: 12px;
-    line-height: 1.65;
-}
-
-.hero-description p {
-    margin: 0 0 12px;
+.hero__description {
+    max-width: 25vw;
 }
 
 .brush-button {
@@ -152,60 +170,6 @@ a {
 .brush-button:hover {
     transform: rotate(-2deg) scale(1.03);
 }
-
-
-/* HERO ARTWORK */
-
-.hero-visual {
-    position: relative;
-    min-width: 0;
-    min-height: 520px;
-}
-
-.hero-woman {
-    position: absolute;
-    width: 115%;
-    max-width: none;
-    height: 100%;
-    right: -12%;
-    bottom: 0;
-    object-fit: contain;
-    object-position: center bottom;
-}
-
-.hero-graffiti {
-    position: absolute;
-    width: 220px;
-    max-width: 45%;
-    top: 0;
-    right: -5%;
-    z-index: 2;
-}
-
-.hero-broken-heart {
-    position: absolute;
-    width: 65px;
-    top: 18%;
-    left: 5%;
-    z-index: 3;
-}
-
-.hero-red-cross {
-    position: absolute;
-    width: 90px;
-    top: 28%;
-    left: 10%;
-    z-index: 3;
-}
-
-.hero-question-mark {
-    position: absolute;
-    width: 65px;
-    top: 55%;
-    right: 0;
-    z-index: 3;
-}
-
 
 /* QUESTION IMAGES */
 
@@ -520,7 +484,45 @@ a {
 }
 
 
-/* RESPONSIVE */
+/* ==========================================================================
+	Reusable Classes
+========================================================================== */
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.visually-hidden {
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+
+/* ==========================================================================
+	RESPONSIVE
+========================================================================== */
+
+@media (min-width: 1200px) {
+    .hero-banner {
+        background-attachment: fixed;
+    }
+}
 
 @media (max-width: 900px) {
 
@@ -593,7 +595,7 @@ a {
         margin-bottom: 25px;
     }
 
-    .course-details {
+    .hero__info {
         max-width: 100%;
         gap: 10px;
         font-size: 10px;
@@ -756,14 +758,3 @@ a {
 }
 
 
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
