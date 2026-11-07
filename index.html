@@ -13,7 +13,7 @@
 
     <main>
 
-        <!-- HEADER -->
+        <!-- Header -->
         <header class="site-header">
             <div class="container">
                 <nav class="site-nav" aria-label="Main navigation">
@@ -22,18 +22,21 @@
                 </nav>
             </div>
         </header>
+        <!-- Header -->
 
 
-        <!-- HERO -->
+        <!-- Hero Banner -->
         <section class="hero-banner position-relative" aria-labelledby="hero-heading">
 
             <img class="hero__x position-absolute" src="content/images/x.png" alt="X">
             <img class="hero__heart position-absolute" src="content/images/broken-heart.png" alt="Broken Heart">
             <img class="hero__graffiti position-absolute" src="content/images/graffiti-drip-mark.png" alt="Graffiti Drip Mark">
 
-            <div class="hero__img">
-                <img src="content/images/hero-banner-img.png" alt="Hero Banner Image">
-            </div>
+            <img class="hero__question-box1 position-absolute z-1" src="content/images/question-box1.svg" alt="What are the philosophical, religious and social underpinnings of the imperative to refuse both the other and the self?">
+            <img class="hero__question-box2 position-absolute z-1" src="content/images/question-box2.svg"
+                    alt="How are these internal conflicts and dilemmas represented in theater, poetry, and novels?">
+            <img class="hero__question-box3 position-absolute z-1" src="content/images/question-box3.svg"
+                    alt="How have these representations affected our contemporary understanding of the tension between amorous fulfillment and frustration?">
 
             <h1 id="hero-heading" class="position-relative hero__title">
                 <span class="visually-hidden position-absolute">Repressed Love</span>
@@ -41,9 +44,6 @@
             </h1>
 
             <div class="container">
-
-                <!-- Info -->
-                    <div class="">
 
                         <div class="hero__info">
                             <div>
@@ -75,17 +75,18 @@
                         </div>
 
                         <a href="#course-program" class="brush-button">
-                            Explore the course
+                            <span>Explore the course</span>
                         </a>
 
-                    </div>
-                    <!-- Info -->
-
             </div>
+
+                <img class="hero__img position-absolute" src="content/images/hero-banner-img.png" alt="Hero Banner Image">
+
         </section>
+        <!-- Hero Banner -->
 
 
-        <!-- FIRST TICKER -->
+        <!-- Ticker -->
         <div class="ticker" role="region" aria-label="Repressed Love">
             <div class="ticker-track">
                 <span>
@@ -98,182 +99,184 @@
                 </span>
             </div>
         </div>
+        <!-- Ticker -->
 
 
-        <!-- THE COURSE -->
-        <section class="course-intro" aria-labelledby="course-heading">
+        <!-- The Course -->
+        <section class="the-course position-relative" aria-labelledby="course-heading">
 
-            <h2 id="course-heading" class="visually-hidden">The Course</h2>
+        <img class="the-course__img position-absolute" src="content/images/the-course-img.png" alt="The Course Image">
 
-            <div class="intro-copy">
+        <img class="the-course__graffiti position-absolute" src="content/images/graffiti-drip-mark2.png" alt="Graffiti Drip Mark">
 
-                <span class="section-label">01 / THE COURSE</span>
+        <div class="container position-relative">
+            <div class="the-course__text">
 
-                <div class="intro-description">
-                    <p>
-                        The course traces the tradition of erotic social-denial
-                        in French literature and thought from the early modern
-                        period through the Enlightenment, approaching love
-                        through examples in French cinema that reflect the
-                        lasting fascination with self-renunciation in modern
-                        media and intellectual life.
-                    </p>
+            <h2 id="course-heading" class="base-font the-course__title">01 / THE COURSE</h2>
+                    <p>The course traces the tradition of erotic self-denial in French literature and thought from the early modern period through the Enlightenment, accompanied with examples in French cinema that reflect the lasting fascination with self-renunciation in modern media and lifestyle.</p>
+                    <p><strong>Readings and discussions are in English.</strong></p>
 
-                    <p>
-                        Readings and discussions are in English.
-                    </p>
-                </div>
+            </div>
+            </div>
+        </section>
+        <!-- The Course -->
+
+        <!-- Light BG -->
+         <div class="bg-light">
+
+            <!-- Course Program -->
+        <section class="course-program position-relative" id="course-program" aria-labelledby="program-heading">
+        <div class="container">
+            <h2 id="program-heading" class="base-font">02 / COURSE PROGRAM</h2>
+
+                <img class="course-program__img" src="content/images/course-program.png" alt="Course Program">
+
+                <img class="course-program__heart position-absolute" src="content/images/heart.png" alt="Heart">
+
+
+            <!-- Accordion -->
+            <div class="accordion">
+
+                <details class="accordion__item">
+                    <summary>
+                        <span class="accordion__number">I</span>
+                        <span class="accordion__item-title">What is love?</span>
+                        <span class="accordion__toggle"></span>
+                    </summary>
+
+                    <div class="accordion__content">
+                        <ul>
+                        <li>
+                        <div>Week 1: <br> Love is Blind</div>
+                        <p>Louise Labé, Debate of Love and Folly, sonnets <br> Jean de La Fontaine, The Loves of Cupid and Psyche</p>
+                        </li>
+                        <li>
+                        <div>Week 2: <br> "A Foolish and Violent Passion"</div>
+                        <p>Mme de Lafayette, The Princess of Cleves</p>
+                        </li>
+                        </ul>
+                    </div>
+
+                </details>
+
+
+                <details class="accordion__item">
+                    <summary>
+                        <span class="accordion__number">II</span>
+                        <span class="accordion__item-title">Love and Duty</span>
+                        <span class="accordion__toggle"></span>
+                    </summary>
+
+                    <div class="accordion__content">
+                        <ul>
+                        <li>
+                        <div>Week 3: <br> Rival lovers</div>
+                        <p>Pierre Corneille, The Cid <br> Anthony Mann, El Cid (1961) <br> Claire Carlin, Women Reading Corneille</p>
+                        </li>
+                        <li>
+                        <div>Week 4: <br> Price of Glory</div>
+                        <p>Jean Racine, Berenice <br> Roland Barthes, On Racine <br> Mitchell Greenberg, Racine: From Ancient Myth to Tragic Modernity</p>
+                        </li>
+                        <li>
+                        <div>Week 5: <br> Sin and Grace</div>
+                        <p>Blaise Pascal, Pensées (Thoughts) (excerpts) <br> Jean Racine, Phaedre <br> Lucien Goldmann, The Hidden God</p>
+                        </li>
+                        </ul>
+                    </div>
+                </details>
+
+
+                <details class="accordion__item">
+                    <summary>
+                        <span class="accordion__number">III</span>
+                        <span class="accordion__item-title">Schools of Virtue</span>
+                        <span class="accordion__toggle"></span>
+                    </summary>
+
+                    <div class="accordion__content">
+                        <ul>
+                        <li>
+                        <div>Week 6: <br> The Education of Women</div>
+                        <p>Molière, The School for Wives <br> Fénelon, Treatise on the Education of Daughters (excerpts)</p>
+                        </li>
+                        <li>
+                        <div>Week 7: <br> The Shah's Harem</div>
+                        <p>Montesquieu, Persian Letters <br> Jean Racine, Bajazet <br> Edward Said, Orientalism</p>
+                        </li>
+                        <li>
+                        <div>Week 8: <br> Teacher and Student</div>
+                        <p>Letters of Abelard and Heloise <br> Jean-Jacques Rousseau, Julie or the New Heloise</p>
+                        </li>
+                        </ul>
+                    </div>
+                </details>
+
+
+                <details class="accordion__item">
+                    <summary>
+                        <span class="accordion__number">IV</span>
+                        <span class="accordion__item-title">The Pleasures of Denial</span>
+                        <span class="accordion__toggle"></span>
+                    </summary>
+
+                    <div class="accordion__content">
+                        <ul>
+                        <li>
+                        <div>Week 9: <br> The Voluntary Celibate</div>
+                        <p>Gabrielle Suchon, On the Celibate Life Freely Chosen <br> Mme de Sévigné, Letters</p>
+                        </li>
+                        <li>
+                        <div>Week 10: <br> Meditations on Emptiness</div>
+                        <p>Roland Barthes, Empire of Signs <br> Jean-Pierre Melville, The Samurai (1967)</p>
+                        </li>
+                        </ul>
+                    </div>
+                </details>
+
+            </div>
+            <!-- Accordion -->
 
             </div>
 
-            <div class="intro-artwork">
-
-                <img src="content/images/course-woman.png" alt="" class="course-woman">
-
-                <img src="content/images/course-splatter.png" alt="" class="course-splatter">
-
-            </div>
+            <img class="position-absolute course-program__enroll" src="content/images/enroll-now-img.png" alt="Enroll now Image">
+            <a href="#" class="brush-button course-program__enroll-btn position-absolute z-1"><span>ENROLL NOW!</span></a>
+            <img class="course-program__graffiti position-absolute" src="content/images/graffiti-drip-mark3.png" alt="Graffiti Drip Mark">
 
         </section>
+        <!-- Course Program -->
 
 
-        <!-- SECOND TICKER -->
-        <div class="ticker" role="region" aria-label="Repressed Love">
-            <div class="ticker-track">
-                <span>
-                    Repressed Love&nbsp; × &nbsp;Repressed Love&nbsp; ×
-                    &nbsp;Repressed Love&nbsp; × &nbsp;Repressed Love&nbsp; ×
-                </span>
-                <span aria-hidden="true">
-                    Repressed Love&nbsp; × &nbsp;Repressed Love&nbsp; ×
-                    &nbsp;Repressed Love&nbsp; × &nbsp;Repressed Love&nbsp; ×
-                </span>
-            </div>
-        </div>
+        <!-- FOOTER -->
+            <footer class="footer">
+                <div class="container">
 
 
-        <!-- COURSE PROGRAM -->
-        <section class="course-program" id="course-program" aria-labelledby="program-heading">
-
-            <h2 id="program-heading" class="visually-hidden">Course Program</h2>
-
-            <span class="section-label">02 / COURSE PROGRAM</span>
-
-            <div class="program-heading">
-
-                <img src="content/images/course-program-title.png" alt="Course Program" class="program-title">
-
-                <img src="content/images/course-heart.png" alt="" class="program-heart">
-
-            </div>
-
-
-            <!-- ACCORDION -->
-            <div class="program-list">
-
-                <details class="program-item">
-                    <summary>
-                        <span class="roman-number">I</span>
-                        <span class="program-item-title">What is love?</span>
-                        <span class="program-toggle"></span>
-                    </summary>
-
-                    <div class="program-content">
-                        <p>
-                            Explore the philosophical and cultural
-                            understanding of love, passion and desire.
-                        </p>
-                    </div>
-                </details>
-
-
-                <details class="program-item">
-                    <summary>
-                        <span class="roman-number">II</span>
-                        <span class="program-item-title">Love and Duty</span>
-                        <span class="program-toggle"></span>
-                    </summary>
-
-                    <div class="program-content">
-                        <p>
-                            Examine the tension between personal desire,
-                            social expectations and duty.
-                        </p>
-                    </div>
-                </details>
-
-
-                <details class="program-item">
-                    <summary>
-                        <span class="roman-number">III</span>
-                        <span class="program-item-title">Schools of Virtue</span>
-                        <span class="program-toggle"></span>
-                    </summary>
-
-                    <div class="program-content">
-                        <p>
-                            Explore the role of virtue and restraint in
-                            representations of love.
-                        </p>
-                    </div>
-                </details>
-
-
-                <details class="program-item">
-                    <summary>
-                        <span class="roman-number">IV</span>
-                        <span class="program-item-title">The Pleasures of Denial</span>
-                        <span class="program-toggle"></span>
-                    </summary>
-
-                    <div class="program-content">
-                        <p>
-                            Consider the paradoxical pleasures of denial
-                            and renunciation.
-                        </p>
-                    </div>
-                </details>
-
-            </div>
-
-
-            <!-- ENROLMENT -->
-            <div class="enrol-section">
-
-                <img src="content/images/enrol-woman.png" alt="" class="enrol-woman">
-
-                <img src="content/images/enrol-heart.png" alt="" class="enrol-heart">
-
-                <img src="content/images/enrol-graffiti.png" alt="" class="enrol-graffiti">
-
-                <a href="#" class="brush-button enrol-button">
-                    Enroll Now!
-                </a>
-
-            </div>
-
-
-            <!-- FOOTER -->
-            <footer class="course-footer">
-
-                <div class="footer-column">
-                    <strong>Jon-Baptiste Gracq</strong>
-                    <span>The Sorbonne | Winter 2027</span>
+                <!-- Footer Top -->
+                 <div class="footer__top">
+                <div>
+                    Jean-Baptist Greuze, <br> The Souvenir, c. 1787, <br> Wallace Collection, <br> Digital modification by Atlas Rosetta, 2026
                 </div>
 
-                <div class="footer-column">
-                    <strong>Jon-Baptiste Gracq</strong>
-                    <span>The Sorbonne | Winter 2027</span>
+                <div>
+                    Jean-Baptiste Greuze, <br> Psyche, 1786, <br> The Wallace Collection, London <br> Digital modification by Atlas Rosetta, 2026
                 </div>
 
-                <div class="footer-column">
-                    <strong>Jon-Baptiste Gracq</strong>
-                    <span>The Sorbonne | Winter 2027</span>
+                <div>
+                    Jean-Baptiste Greuze, <br> The Broken Mirror, 1763, <br> The Wallace Collection, London Digital <br> modification by Atlas Rosetta, 2026
+                </div>
+                </div>
+                <!-- Footer Top -->
+
+                <!-- Footer Bottom -->
+                 <div class="footer__bottom">Copyright 2026 by Ainan Liu</div>
+                <!-- Footer Bottom -->
+
                 </div>
 
             </footer>
 
-        </section>
+         </div>
+        <!-- Light BG -->
 
     </main>
 

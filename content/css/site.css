@@ -1,10 +1,10 @@
 
 :root {
-    --black: #171717;
+    --black: #1D1E1E;
     --cream: #f0ede8;
     --pink: #bd1551;
     --white: #ffffff;
-    --text: #171717;
+    --text: #DBDBDB;
 }
 
 * {
@@ -20,7 +20,7 @@ body {
     margin: 0;
     background: #f7f7f7;
     color: var(--text);
-    font-size: 1.2rem;
+    font-size: 1.1vw;
     line-height: 1.3;
     font-family: 'HelveticaNeue', sans-serif;
 }
@@ -92,28 +92,27 @@ a {
     position: relative;
     padding: 8rem 0;
     overflow: hidden;
-    color: #DBDBDB;
     min-height: 120vh;
-    background: #161616 url('../images/repressed-love-hero-bg.jpg') no-repeat center center;
+    background: #161616 url('../images/hero-banner-bg.jpg') no-repeat center center;
     background-size: cover;
+    overflow: hidden;
 }
 
-.hero__img img {
-    position: absolute;
+.hero__img {
     right: 0;
     bottom: 0;
     max-height: 81%;
 }
 
 .hero__title {
-    max-width: 62vw;
-    padding: 0 3vw;
+    max-width: 58vw;
+    padding: 0 4vw;
     width: 100%;
 }
 
 .hero__x {
     top: 23%;
-    left: 25%;
+    left: 22%;
     max-width: 13vw;
     z-index: 1;
 }
@@ -135,7 +134,7 @@ right: -3vw;
     display: grid;
     grid-template-columns: 1.1fr 1fr .6fr;
     gap: 15px;
-    max-width: 50vw;
+    max-width: 45vw;
     margin: 3rem 0;
 }
 
@@ -145,69 +144,71 @@ right: -3vw;
    margin-bottom: 0.1rem;
 }
 
-
 .hero__description {
     max-width: 25vw;
 }
 
+.hero__question-box1 {
+    bottom: 6%;
+    right: 41%;
+    max-width: 30%;
+}
+
+.hero__question-box2 {
+        bottom: 2%;
+    right: 24%;
+    max-width: 22%;
+}
+
+.hero__question-box3 {
+        bottom: 4%;
+    right: 2%;
+    max-width: 22%;
+}
+
+.hero-banner .brush-button {
+    margin-top: 3rem;
+}
+
+
+/* ==========================================================================
+	Buttons
+========================================================================== */
+
 .brush-button {
     display: inline-block;
-    position: relative;
-    padding: 12px 25px;
-    margin-top: 10px;
-    background: var(--pink);
-    color: white;
+    text-align: center;
+    background: url(../images/button.svg) no-repeat center center;
+    background-size: cover;
+    padding: 1.4rem 2rem;
+    color: #fff;
+    font-size: 2.5rem;
+    line-height: 1;
+    transition: 500ms ease-in-out;
     font-family: 'RomanAntique', serif;
-    font-size: 20px;
-    line-height: 1.2;
-    clip-path: polygon(
-        2% 5%, 98% 0, 100% 84%,
-        95% 100%, 3% 96%, 0 18%
-    );
-    transition: transform .25s ease;
+    min-width: 22rem;
+}
+
+.brush-button span {
+    transform: rotate(-3deg);
+    display: inline-block;
 }
 
 .brush-button:hover {
-    transform: rotate(-2deg) scale(1.03);
-}
-
-/* QUESTION IMAGES */
-
-.questions-grid {
-    position: relative;
-    z-index: 5;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    align-items: end;
-    gap: 25px;
-    margin-top: -5px;
-}
-
-.question-card {
-    position: relative;
-    min-width: 0;
-}
-
-.question-card img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-
-.question-card-two {
-    transform: translateY(-15px);
+    transform: scale(1.05);
 }
 
 
-/* TICKER */
+/* ==========================================================================
+	Ticker
+========================================================================== */
+
 
 .ticker {
     width: 100%;
     overflow: hidden;
     background: var(--pink);
     color: white;
-    border-top: 2px solid #e96b91;
-    border-bottom: 2px solid #e96b91;
     white-space: nowrap;
 }
 
@@ -237,120 +238,107 @@ right: -3vw;
 }
 
 
-/* COURSE INTRO */
+/* ==========================================================================
+	The Course
+========================================================================== */
 
-.course-intro {
+
+.the-course {
     position: relative;
-    min-height: 650px;
-    padding: 90px 8% 0;
-    overflow: hidden;
-    color: white;
-    background-color: var(--black);
-    background-image: url('../images/dark-texture.jpg');
-    background-repeat: repeat;
-    background-size: 500px auto;
+    padding: 14rem 0;
+    background: #212121 url('../images/the-course-bg.png') no-repeat center center;
+    background-size: cover;
+    min-height: 110vh
 }
 
-.intro-copy {
-    position: relative;
-    z-index: 2;
-    width: 42%;
-    max-width: 420px;
-}
-
-.section-label {
-    display: block;
-    margin-bottom: 45px;
-    font-family: 'HelveticaNeue', sans-serif;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: #aaa;
-}
-
-.intro-description {
-    font-family: 'RomanAntique', serif;
-    font-size: 12px;
-    line-height: 1.75;
-    color: #e5e5e5;
-}
-
-.intro-description p {
-    margin: 0 0 15px;
-}
-
-.intro-artwork {
+.the-course:before {
+    content: "";
     position: absolute;
-    width: 65%;
-    height: 100%;
     top: 0;
-    right: 0;
-}
-
-.course-woman {
-    position: absolute;
+    left: 0;
     width: 100%;
     height: 100%;
-    inset: 0;
-    object-fit: contain;
-    object-position: center bottom;
+    background: rgba(0,0,0,.5);
 }
 
-.course-splatter {
-    position: absolute;
-    width: 135px;
-    top: 15px;
+.the-course__title {
+    margin-bottom: 5rem;
+    font-size: 1.25rem;
+}
+
+.the-course__text {
+    max-width: 37%
+}
+
+.the-course__img {
     right: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.the-course__graffiti {
+    right: 0;
+    top: 2rem;
 }
 
 
-/* COURSE PROGRAM */
+/* ==========================================================================
+ Course Program
+========================================================================== */
 
 .course-program {
-    position: relative;
-    padding: 75px 9% 30px;
-    overflow: hidden;
-    background-color: var(--cream);
-    background-image: url('../images/cream-texture.jpg');
-    background-repeat: repeat;
-    background-size: 600px auto;
+   padding: 7rem 0;
 }
 
-.course-program > .section-label {
-    color: #aaa;
+.course-program h2 {
+    font-size: 1.25rem;
 }
 
-.program-heading {
-    position: relative;
-    width: 75%;
-    max-width: 650px;
-    margin: 0 auto 55px;
+.course-program__img {
+    max-width: 63vw;
+    display: block;
+    margin: 5rem auto;
 }
 
-.program-title {
-    width: 100%;
+.course-program__heart {
+    top: -7rem;
+    right: 27%;
+    max-width: 19vw;
 }
 
-.program-heart {
-    position: absolute;
-    width: 110px;
-    top: -35px;
-    right: -8%;
+.course-program .accordion {
+    margin-bottom: 30vw;
+}
+
+.course-program__enroll {
+    bottom: 0;
+    left: 0;
+    max-width: 55%;
+}
+
+.course-program__enroll-btn {
+    padding: 1.4rem 6rem;
+    font-size: 3.2rem;
+    right: 23%;
+}
+
+.course-program__graffiti {
+    right: 0;
+    bottom: 5%;
+    max-width: 30vw;
 }
 
 
-/* ACCORDION */
+/* ==========================================================================
+  Accordion
+========================================================================== */
 
-.program-list {
-    position: relative;
-    z-index: 2;
-    margin-bottom: 100px;
-}
-
-.program-item {
+.accordion summary {
     border-bottom: 1px solid rgba(0,0,0,.13);
+    padding: 1.4rem 0;
 }
 
-.program-item summary {
+.accordion__item summary {
     display: grid;
     grid-template-columns: 45px 1fr 30px;
     align-items: center;
@@ -358,129 +346,102 @@ right: -3vw;
     list-style: none;
     cursor: pointer;
     font-family: 'RomanAntique', serif;
-    font-size: 20px;
+    font-size: 3.5rem;
 }
 
-.program-item summary::-webkit-details-marker {
+.accordion__item summary::-webkit-details-marker {
     display: none;
 }
 
-.roman-number {
-    font-size: 19px;
+.accordion__item-title {
+    padding-right: 1.5rem;
+    padding-left: 4rem;
 }
 
-.program-item-title {
-    padding-right: 15px;
-}
-
-.program-toggle {
+.accordion__toggle {
     position: relative;
-    width: 15px;
-    height: 15px;
+    width: 1.5rem;
+    height: 1.5rem;
     justify-self: end;
 }
 
-.program-toggle::before,
-.program-toggle::after {
+.accordion__toggle::before,
+.accordion__toggle::after {
     content: "";
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 12px;
-    height: 1.5px;
+    width: 1.1rem;
+    height: 0.14rem;
     background: #171717;
     transform: translate(-50%, -50%);
 }
 
-.program-toggle::after {
+.accordion__toggle::after {
     transform: translate(-50%, -50%) rotate(90deg);
     transition: transform .2s ease;
 }
 
-.program-item[open] .program-toggle::after {
+.accordion__item[open] .accordion__toggle::after {
     transform: translate(-50%, -50%) rotate(0);
 }
 
-.program-content {
-    padding: 0 30px 20px 45px;
-    font-family: 'HelveticaNeue', sans-serif;
-    font-size: 14px;
-    line-height: 1.7;
+.accordion__content {
+    padding: 2.5rem 2rem 0 8rem;
+    font-size: 1.2rem;
 }
 
-.program-content p {
-    max-width: 700px;
+.accordion__content ul {
+    list-style: none;
+    padding: 0;
     margin: 0;
 }
 
-
-/* ENROLMENT */
-
-.enrol-section {
-    position: relative;
-    min-height: 320px;
+.accordion__content ul li {
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    padding: 35px 4%;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
 }
 
-.enrol-woman {
-    position: absolute;
-    width: 65%;
-    max-width: 560px;
-    height: 250px;
-    left: -5%;
-    bottom: 0;
-    object-fit: contain;
-    object-position: left bottom;
+.accordion__content li > div {
+    width: 40%;
 }
 
-.enrol-heart {
-    position: absolute;
-    width: 90px;
-    top: -25px;
-    left: 58%;
-}
-
-.enrol-graffiti {
-    position: absolute;
-    width: 220px;
-    top: 0;
-    right: -10%;
-}
-
-.enrol-button {
-    position: relative;
-    z-index: 3;
-    margin-bottom: 35px;
-    text-transform: uppercase;
+.accordion__content li > p {
+    width: 60%;
 }
 
 
-/* FOOTER */
+/* ==========================================================================
+  Footer
+========================================================================== */
 
-.course-footer {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 25px 0 10px;
-    border-top: 1px solid rgba(0,0,0,.15);
+.footer {
+    font-weight: 300;
     text-align: center;
-    font-family: 'RomanAntique', serif;
-    font-size: 9px;
+    padding: 10rem 0 6rem 0;
+    font-size: 1.2rem;
 }
 
-.footer-column {
+.footer__top {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
-    padding: 0 12px;
+    padding-bottom: 4rem;
+    gap: 3rem;
 }
 
-.footer-column + .footer-column {
-    border-left: 1px solid rgba(0,0,0,.15);
+.footer__top > div {
+    width: 33.33%;
+    padding: 0 2rem;
+    border-right: 1px solid var(--black);
+}
+
+.footer__top > div:last-child {
+    border-right: 0;
+    padding-right: 0;
+}
+
+.footer__top > div:first-child {
+    padding-left: 0;
 }
 
 
@@ -489,7 +450,7 @@ right: -3vw;
 ========================================================================== */
 
 .container {
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
     padding: 0 1rem;
 }
@@ -513,248 +474,92 @@ right: -3vw;
     border: 0;
 }
 
+.z-1 {
+    z-index: 1;
+}
+
+.bg-light {
+    background: url(../images/light-bg.jpg) repeat center center;
+    color: var(--black);
+}
+
+.base-font {
+    font-family: 'HelveticaNeue', sans-serif;
+    font-weight: 400;
+}
+
 
 /* ==========================================================================
 	RESPONSIVE
 ========================================================================== */
 
 @media (min-width: 1200px) {
-    .hero-banner {
+    .hero-banner, .the-course, .bg-light {
         background-attachment: fixed;
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1199px) {
 
-    .hero-main {
-        grid-template-columns: 45% 55%;
+    .container {
+        width: 90%;
     }
 
-    .hero-title {
-        max-width: 380px;
+    .hero__img {
+        max-height: 76%;
     }
 
-    .hero-visual {
-        min-height: 450px;
+    .course-program__enroll {
+        max-width: 80vw;
     }
 
-    .questions-grid {
-        gap: 15px;
-    }
-
-    .course-intro {
-        min-height: 570px;
-    }
-
-    .intro-artwork {
-        width: 65%;
-    }
-
-    .course-program {
-        padding-left: 7%;
-        padding-right: 7%;
+    .the-course {
+        min-height: 80vh;
     }
 
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 991px) {
 
-    .site-header {
-        padding: 0 5%;
+    body {
+        font-size: 1rem;
     }
 
-    .site-nav {
-        min-height: 55px;
-        gap: 45px;
-    }
-
-    .site-nav a {
-        font-size: 9px;
-    }
-
-
-    /* HERO */
-
-    .hero-section {
-        padding: 30px 6% 50px;
-    }
-
-    .hero-main {
-        display: flex;
-        flex-direction: column;
-        min-height: auto;
-    }
-
-    .hero-info {
-        padding-top: 0;
-    }
-
-    .hero-title {
-        max-width: 360px;
-        margin-bottom: 25px;
-    }
-
-    .hero__info {
+    .hero__title {
         max-width: 100%;
-        gap: 10px;
-        font-size: 10px;
     }
 
-    .hero-description {
-        font-size: 11px;
+    .hero__x {
+    top: 21%;
+    left: 39%;
+    max-width: 20vw;
+    }
+
+    .hero__img {
+        max-height: 68%;
+        max-width: 130%;
+        right: -27%;
+        bottom: -8%;
     }
 
     .brush-button {
         font-size: 17px;
     }
 
-    .hero-visual {
-        min-height: 340px;
-        margin-top: 10px;
-    }
-
-    .hero-woman {
-        width: 115%;
-        right: -8%;
-    }
-
-    .hero-graffiti {
-        width: 125px;
-    }
-
-    .hero-broken-heart {
-        width: 45px;
-    }
-
-    .hero-red-cross {
-        width: 60px;
-    }
-
-
-    /* QUESTION IMAGES */
-
-    .questions-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        margin-top: 20px;
-    }
-
-    .question-card {
-        width: 90%;
-        max-width: 360px;
-        margin: 0 auto;
-    }
-
-    .question-card-two {
-        transform: none;
-    }
-
-
-    /* COURSE INTRO */
-
-    .course-intro {
-        min-height: 620px;
-        padding: 55px 7% 0;
-    }
-
-    .intro-copy {
-        width: 75%;
-        max-width: 320px;
-    }
-
-    .section-label {
-        margin-bottom: 30px;
-    }
-
-    .intro-description {
-        font-size: 11px;
-    }
-
-    .intro-artwork {
-        width: 100%;
-        height: 390px;
-        top: auto;
-        bottom: 0;
-        right: -8%;
-    }
-
-    .course-splatter {
-        width: 90px;
-    }
-
-
-    /* COURSE PROGRAM */
-
-    .course-program {
-        padding: 55px 7% 25px;
-    }
-
-    .program-heading {
-        width: 90%;
-        margin-bottom: 35px;
-    }
-
-    .program-heart {
-        width: 70px;
-        top: -25px;
-    }
-
-    .program-item summary {
-        grid-template-columns: 35px 1fr 25px;
-        min-height: 58px;
-        font-size: 16px;
-    }
-
-    .program-content {
-        padding-left: 35px;
-        font-size: 13px;
-    }
-
-    .program-list {
-        margin-bottom: 65px;
-    }
-
-
-    /* ENROLMENT */
-
-    .enrol-section {
-        min-height: 240px;
-        padding: 20px 0;
-    }
-
-    .enrol-woman {
-        width: 78%;
-        height: 180px;
-        left: -5%;
-    }
-
-    .enrol-heart {
-        width: 60px;
-    }
-
-    .enrol-graffiti {
-        width: 125px;
-    }
-
-    .enrol-button {
-        font-size: 16px;
-        padding: 10px 18px;
-        margin-bottom: 20px;
-    }
-
-
-    /* FOOTER */
-
-    .course-footer {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
-    .footer-column + .footer-column {
-        border-left: 0;
+    .hero__info {
+        max-width: 55vw;
     }
 
 }
 
+
+@media (max-width: 767px) {
+
+    .hero-banner {
+        min-height: 100vh;
+    }
+
+
+}
 
