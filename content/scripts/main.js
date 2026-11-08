@@ -1,18 +1,19 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Check GSAP availability
+    // GSAP availability
     if (!window.gsap || !window.ScrollTrigger) {
         console.warn("GSAP or ScrollTrigger could not be loaded.");
         return;
     }
 
-    // Respect reduced-motion accessibility settings
+    // Respect reduced-motion settings
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         return;
     }
 
     gsap.registerPlugin(ScrollTrigger);
+
 
     // =========================================================
     // HERO BANNER
@@ -29,61 +30,121 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         // Main title
-        heroTimeline.from(".hero__title", {
-            opacity: 0,
-            y: 45,
-            duration: 1.2
-        });
+        const heroTitle = hero.querySelector(".hero__title");
+
+        if (heroTitle) {
+            heroTimeline.from(heroTitle, {
+                autoAlpha: 0,
+                y: 45,
+                duration: 1.2
+            });
+        }
 
         // Course information
-        heroTimeline.from(".hero__info > div", {
-            opacity: 0,
-            y: 25,
-            duration: 0.7,
-            stagger: 0.15
-        }, "-=0.6");
+        const heroInfo = hero.querySelectorAll(".hero__info > div");
+
+        if (heroInfo.length) {
+            heroTimeline.from(heroInfo, {
+                autoAlpha: 0,
+                y: 25,
+                duration: 0.7,
+                stagger: 0.15
+            }, "-=0.6");
+        }
 
         // Description
-        heroTimeline.from(".hero__description p", {
-            opacity: 0,
-            y: 20,
-            duration: 0.7,
-            stagger: 0.2
-        }, "-=0.3");
+        const heroDescription = hero.querySelectorAll(".hero__description p");
 
-        // Explore button
-        heroTimeline.from(".hero-banner .brush-button", {
-            opacity: 0,
-            scale: 0.85,
-            rotation: -3,
-            duration: 0.8
-        }, "-=0.2");
+        if (heroDescription.length) {
+            heroTimeline.from(heroDescription, {
+                autoAlpha: 0,
+                y: 20,
+                duration: 0.7,
+                stagger: 0.2
+            }, "-=0.3");
+        }
+
+        // HERO CTA - Explore the course
+        // Target the exact link from your HTML
+        const heroButton = hero.querySelector('a[href="#course-program"]');
+
+        if (heroButton) {
+
+            // Keep button above the hero artwork
+            gsap.set(heroButton, {
+                position: "relative",
+                zIndex: 5,
+                autoAlpha: 1
+            });
+
+            // Animate button into view
+            heroTimeline.fromTo(
+                heroButton,
+                {
+                    autoAlpha: 0,
+                    y: 30,
+                    scale: 0.9
+                },
+                {
+                    autoAlpha: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.9,
+                    ease: "back.out(1.4)",
+                    onComplete: () => {
+                        gsap.set(heroButton, {
+                            autoAlpha: 1,
+                            clearProps: "transform"
+                        });
+                    }
+                },
+                "-=0.2"
+            );
+
+        } else {
+            console.warn("Hero CTA link not found.");
+        }
+
 
         // Woman image
-        heroTimeline.from(".hero__img", {
-            opacity: 0,
-            x: 70,
-            duration: 1.6,
-            ease: "power2.out"
-        }, "-=1.1");
+        const heroImage = hero.querySelector(".hero__img");
+
+        if (heroImage) {
+
+            heroTimeline.from(heroImage, {
+                autoAlpha: 0,
+                x: 70,
+                duration: 1.6,
+                ease: "power2.out"
+            }, "-=0.4");
+
+        }
+
 
         // Broken X mark
-        gsap.from(".hero__x", {
-            opacity: 0,
-            scale: 0.5,
-            rotation: 35,
-            duration: 1,
-            delay: 0.5,
-            ease: "back.out(1.5)"
-        });
+        const heroX = hero.querySelector(".hero__x");
 
-        // Broken heart: slow, irregular heartbeat
-        const heroHeart = document.querySelector(".hero__heart");
+        if (heroX) {
+            gsap.from(heroX, {
+                autoAlpha: 0,
+                scale: 0.5,
+                rotation: 35,
+                duration: 1,
+                delay: 0.5,
+                ease: "back.out(1.5)"
+            });
+        }
+
+
+        // Broken heart
+        const heroHeart = hero.querySelector(".hero__heart");
 
         if (heroHeart) {
+
             const heartBeat = gsap.timeline({
                 repeat: -1,
-                repeatDelay: 1.8
+                repeatDelay: 1.8,
+                delay: 1
             });
 
             heartBeat
@@ -108,22 +169,31 @@ document.addEventListener("DOMContentLoaded", () => {
                     rotation: 0,
                     duration: 0.5
                 });
+
         }
 
-        // Hero graffiti: occasional subtle movement
-        gsap.to(".hero__graffiti", {
-            rotation: 2,
-            scale: 1.025,
-            duration: 1.8,
-            repeat: -1,
-            yoyo: true,
-            repeatDelay: 2.5,
-            ease: "sine.inOut",
-            transformOrigin: "80% 50%"
-        });
 
-        // Question marks: individual floating movement
-        const questionMarks = gsap.utils.toArray(
+        // Hero graffiti
+        const heroGraffiti = hero.querySelector(".hero__graffiti");
+
+        if (heroGraffiti) {
+
+            gsap.to(heroGraffiti, {
+                rotation: 2,
+                scale: 1.025,
+                duration: 1.8,
+                repeat: -1,
+                yoyo: true,
+                repeatDelay: 2.5,
+                ease: "sine.inOut",
+                transformOrigin: "80% 50%"
+            });
+
+        }
+
+
+        // Question marks
+        const questionMarks = hero.querySelectorAll(
             ".hero__question-marks img, .hero__question-marks2 img"
         );
 
@@ -136,37 +206,71 @@ document.addEventListener("DOMContentLoaded", () => {
                 repeat: -1,
                 yoyo: true,
                 ease: "sine.inOut",
-                delay: index * 0.15
+                delay: index * 0.15 + 1
             });
 
         });
 
-        // Question boxes: gentle floating
-        gsap.utils.toArray(
-            ".hero__question-box1, .hero__question-box2, .hero__question-box3"
-        ).forEach((box, index) => {
 
-            gsap.to(box, {
-                y: index % 2 === 0 ? -5 : 5,
-                duration: 3 + index * 0.5,
+        // Question boxes
+        // Desktop and mobile images have duplicate classes.
+        // Animate only the currently visible versions.
+        const questionBoxes = gsap.utils.toArray(
+            ".hero__question-box1, .hero__question-box2, .hero__question-box3"
+        ).filter(box => window.getComputedStyle(box).display !== "none");
+
+        if (questionBoxes.length) {
+
+            gsap.set(questionBoxes, {
+                autoAlpha: 0,
+                y: 35,
+                scale: 0.9
+            });
+
+            // Reveal AFTER the woman image animation finishes
+            heroTimeline.to(questionBoxes, {
+                autoAlpha: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.8,
+                stagger: 0.25,
+                ease: "power3.out"
+            }, "+=0.15");
+
+            // Gentle floating after reveal
+            questionBoxes.forEach((box, index) => {
+
+                gsap.to(box, {
+                    y: index % 2 === 0 ? -5 : 5,
+                    duration: 3 + index * 0.5,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut",
+                    delay: 3 + index * 0.3
+                });
+
+            });
+
+        }
+
+
+        // Hero ticker
+        const heroTicker = hero.querySelector(".ticker");
+
+        if (heroTicker) {
+
+            gsap.to(heroTicker, {
+                x: 18,
+                duration: 12,
                 repeat: -1,
                 yoyo: true,
-                ease: "sine.inOut",
-                delay: index * 0.3
+                ease: "sine.inOut"
             });
 
-        });
-
-        // Hero ticker: very subtle horizontal movement
-        gsap.to(".hero-banner .ticker", {
-            x: 18,
-            duration: 12,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        });
+        }
 
     }
+
 
 
     // =========================================================
@@ -177,6 +281,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (courseSection) {
 
+        const courseText = courseSection.querySelector(".the-course__text");
+        const courseImage = courseSection.querySelector(".the-course__img");
+        const courseGraffiti = courseSection.querySelector(".the-course__graffiti");
+
         const courseTimeline = gsap.timeline({
             scrollTrigger: {
                 trigger: courseSection,
@@ -185,56 +293,66 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Section text
-        courseTimeline.from(".the-course__text", {
-            opacity: 0,
-            y: 45,
-            duration: 1,
-            ease: "power3.out"
-        });
+        if (courseText) {
 
-        // Woman image reveal
-        courseTimeline.from(".the-course__img", {
-            opacity: 0,
-            x: 70,
-            duration: 1.4,
-            ease: "power2.out"
-        }, "-=0.6");
+            courseTimeline.from(courseText, {
+                autoAlpha: 0,
+                y: 45,
+                duration: 1,
+                ease: "power3.out"
+            });
 
-        // Graffiti reveal
-        courseTimeline.from(".the-course__graffiti", {
-            opacity: 0,
-            scale: 0.7,
-            rotation: 12,
-            duration: 1,
-            ease: "back.out(1.5)"
-        }, "-=0.8");
+        }
 
-        // Slow image parallax while scrolling
-        gsap.to(".the-course__img", {
-            yPercent: -5,
-            ease: "none",
-            scrollTrigger: {
-                trigger: courseSection,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 1
-            }
-        });
+        if (courseImage) {
 
-        // Graffiti occasional movement
-        gsap.to(".the-course__graffiti", {
-            rotation: -3,
-            scale: 1.04,
-            duration: 2,
-            repeat: -1,
-            yoyo: true,
-            repeatDelay: 3,
-            ease: "sine.inOut",
-            transformOrigin: "50% 50%"
-        });
+            courseTimeline.from(courseImage, {
+                autoAlpha: 0,
+                x: 70,
+                duration: 1.4,
+                ease: "power2.out"
+            }, "-=0.6");
+
+            // Image parallax
+            gsap.to(courseImage, {
+                yPercent: -5,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: courseSection,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1
+                }
+            });
+
+        }
+
+        if (courseGraffiti) {
+
+            courseTimeline.from(courseGraffiti, {
+                autoAlpha: 0,
+                scale: 0.7,
+                rotation: 12,
+                duration: 1,
+                ease: "back.out(1.5)"
+            }, "-=0.8");
+
+            // Occasional movement
+            gsap.to(courseGraffiti, {
+                rotation: -3,
+                scale: 1.04,
+                duration: 2,
+                repeat: -1,
+                yoyo: true,
+                repeatDelay: 3,
+                ease: "sine.inOut",
+                transformOrigin: "50% 50%"
+            });
+
+        }
 
     }
+
 
 
     // =========================================================
@@ -245,6 +363,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (programSection) {
 
+        const programHeading = programSection.querySelector(
+            ".container > h2"
+        );
+
+        const programImage = programSection.querySelector(
+            ".course-program__img"
+        );
+
+        const programHeart = programSection.querySelector(
+            ".course-program__heart"
+        );
+
+        const accordionItems = programSection.querySelectorAll(
+            ".accordion__item"
+        );
+
         const programTimeline = gsap.timeline({
             scrollTrigger: {
                 trigger: programSection,
@@ -253,105 +387,151 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
+
         // Section heading
-        programTimeline.from(".course-program > .container > h2", {
-            opacity: 0,
-            y: 25,
-            duration: 0.8
-        });
+        if (programHeading) {
+
+            programTimeline.from(programHeading, {
+                autoAlpha: 0,
+                y: 25,
+                duration: 0.8
+            });
+
+        }
+
 
         // Course program graphic
-        programTimeline.from(".course-program__img", {
-            opacity: 0,
-            y: 45,
-            scale: 0.95,
-            duration: 1.1,
-            ease: "power3.out"
-        }, "-=0.3");
+        if (programImage) {
+
+            programTimeline.from(programImage, {
+                autoAlpha: 0,
+                y: 45,
+                scale: 0.95,
+                duration: 1.1,
+                ease: "power3.out"
+            }, "-=0.3");
+
+        }
+
 
         // Accordion items
-        programTimeline.from(".accordion__item", {
-            opacity: 0,
-            y: 25,
-            duration: 0.6,
-            stagger: 0.15,
-            ease: "power2.out"
-        }, "-=0.3");
+        if (accordionItems.length) {
+
+            programTimeline.from(accordionItems, {
+                autoAlpha: 0,
+                y: 25,
+                duration: 0.6,
+                stagger: 0.15,
+                ease: "power2.out"
+            }, "-=0.3");
+
+        }
+
 
         // Heart illustration
-        programTimeline.from(".course-program__heart", {
-            opacity: 0,
-            scale: 0.4,
-            rotation: -25,
-            duration: 1,
-            ease: "back.out(1.7)"
-        }, "-=0.9");
+        if (programHeart) {
 
-        // Heart floating
-        gsap.to(".course-program__heart", {
-            y: -12,
-            rotation: 4,
-            duration: 3,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        });
+            programTimeline.from(programHeart, {
+                autoAlpha: 0,
+                scale: 0.4,
+                rotation: -25,
+                duration: 1,
+                ease: "back.out(1.7)"
+            }, "-=0.9");
+
+            gsap.to(programHeart, {
+                y: -12,
+                rotation: 4,
+                duration: 3,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            });
+
+        }
+
 
         // Enrol artwork
-        gsap.from(".course-program__enroll", {
-            opacity: 0,
-            x: -70,
-            rotation: -3,
-            duration: 1.2,
-            ease: "power3.out",
-            scrollTrigger: {
-                trigger: ".course-program__enroll",
-                start: "top 85%",
-                once: true
-            }
-        });
+        const enrollImage = programSection.querySelector(
+            ".course-program__enroll"
+        );
+
+        if (enrollImage) {
+
+            gsap.from(enrollImage, {
+                autoAlpha: 0,
+                x: -70,
+                rotation: -3,
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: enrollImage,
+                    start: "top 85%",
+                    once: true
+                }
+            });
+
+        }
+
 
         // Enrol button
-        gsap.from(".course-program__enroll-btn", {
-            opacity: 0,
-            x: 60,
-            scale: 0.85,
-            duration: 1,
-            ease: "back.out(1.5)",
-            scrollTrigger: {
-                trigger: ".course-program__enroll-btn",
-                start: "top 90%",
-                once: true
-            }
-        });
+        const enrollButton = programSection.querySelector(
+            ".course-program__enroll-btn"
+        );
+
+        if (enrollButton) {
+
+            gsap.from(enrollButton, {
+                autoAlpha: 0,
+                x: 60,
+                scale: 0.85,
+                duration: 1,
+                ease: "back.out(1.5)",
+                scrollTrigger: {
+                    trigger: enrollButton,
+                    start: "top 90%",
+                    once: true
+                }
+            });
+
+        }
+
 
         // Bottom graffiti
-        gsap.from(".course-program__graffiti", {
-            opacity: 0,
-            scale: 0.7,
-            rotation: 15,
-            duration: 1.2,
-            ease: "power2.out",
-            scrollTrigger: {
-                trigger: ".course-program__graffiti",
-                start: "top 90%",
-                once: true
-            }
-        });
+        const programGraffiti = programSection.querySelector(
+            ".course-program__graffiti"
+        );
 
-        // Occasional graffiti twitch
-        gsap.to(".course-program__graffiti", {
-            rotation: -2,
-            scale: 1.025,
-            duration: 1.5,
-            repeat: -1,
-            yoyo: true,
-            repeatDelay: 3,
-            ease: "sine.inOut",
-            transformOrigin: "50% 50%"
-        });
+        if (programGraffiti) {
+
+            gsap.from(programGraffiti, {
+                autoAlpha: 0,
+                scale: 0.7,
+                rotation: 15,
+                duration: 1.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: programGraffiti,
+                    start: "top 90%",
+                    once: true
+                }
+            });
+
+            gsap.to(programGraffiti, {
+                rotation: -2,
+                scale: 1.025,
+                duration: 1.5,
+                repeat: -1,
+                yoyo: true,
+                repeatDelay: 3,
+                ease: "sine.inOut",
+                transformOrigin: "50% 50%"
+            });
+
+        }
 
     }
+
 
 
     // =========================================================
@@ -362,29 +542,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (footer) {
 
-        gsap.from(".footer__top > div", {
-            opacity: 0,
-            y: 25,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power2.out",
-            scrollTrigger: {
-                trigger: footer,
-                start: "top 90%",
-                once: true
-            }
-        });
+        const footerTop = footer.querySelectorAll(".footer__top > div");
+        const footerBottom = footer.querySelector(".footer__bottom");
 
-        gsap.from(".footer__bottom", {
-            opacity: 0,
-            duration: 0.8,
-            delay: 0.3,
-            scrollTrigger: {
-                trigger: footer,
-                start: "top 90%",
-                once: true
-            }
-        });
+        if (footerTop.length) {
+
+            gsap.from(footerTop, {
+                autoAlpha: 0,
+                y: 25,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: footer,
+                    start: "top 90%",
+                    once: true
+                }
+            });
+
+        }
+
+        if (footerBottom) {
+
+            gsap.from(footerBottom, {
+                autoAlpha: 0,
+                duration: 0.8,
+                delay: 0.3,
+                scrollTrigger: {
+                    trigger: footer,
+                    start: "top 90%",
+                    once: true
+                }
+            });
+
+        }
 
     }
 
