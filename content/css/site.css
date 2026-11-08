@@ -539,6 +539,31 @@ a {
 
 
 /* ==========================================================================
+   GSAP Animation Support
+========================================================================== */
+
+.hero__heart,
+.hero__graffiti,
+.hero__x,
+.hero__question-marks img,
+.hero__question-box1,
+.hero__question-box2,
+.hero__question-box3,
+.the-course__graffiti,
+.course-program__heart,
+.course-program__graffiti {
+    transform-origin: center center;
+    will-change: transform;
+}
+
+.hero__img,
+.the-course__img,
+.course-program__enroll {
+    will-change: transform, opacity;
+}
+
+
+/* ==========================================================================
 	RESPONSIVE
 ========================================================================== */
 
