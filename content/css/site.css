@@ -106,7 +106,7 @@ a {
 .hero-banner {
     position: relative;
     padding: 8rem 0;
-    min-height: 130vh;
+    min-height: 73rem;
     background: #161616 url('../images/hero-banner-bg.jpg') no-repeat center center;
     background-size: cover;
 }
@@ -186,17 +186,18 @@ a {
 .hero__question-marks,
 .hero__question-marks2 {
     display: flex;
+    transform: scale(0.8);
 }
 
 .hero__question-marks {
     align-items: flex-end;
     left: 31%;
-    bottom: 17%;
+    bottom: 13%;
 }
 
 .hero__question-marks2 {
     align-items: flex-start;
-    right: -3%;
+    right: -5%;
     bottom: 22%;
     gap: 1rem;
 }
@@ -540,6 +541,12 @@ a {
 /* ==========================================================================
 	RESPONSIVE
 ========================================================================== */
+
+@media (min-width: 1900px) {
+    .hero-banner {
+        min-height: 130vh;
+    }
+}
 
 @media (min-width: 1200px) {
 
