@@ -1,13 +1,11 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // GSAP availability
     if (!window.gsap || !window.ScrollTrigger) {
         console.warn("GSAP or ScrollTrigger could not be loaded.");
         return;
     }
 
-    // Respect reduced-motion settings
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         return;
     }
@@ -23,251 +21,309 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (hero) {
 
-        const heroTimeline = gsap.timeline({
-            defaults: {
-                ease: "power3.out"
-            }
-        });
-
-        // Main title
-        const heroTitle = hero.querySelector(".hero__title");
-
-        if (heroTitle) {
-            heroTimeline.from(heroTitle, {
-                autoAlpha: 0,
-                y: 45,
-                duration: 1.2
-            });
-        }
-
-        // Course information
-        const heroInfo = hero.querySelectorAll(".hero__info > div");
-
-        if (heroInfo.length) {
-            heroTimeline.from(heroInfo, {
-                autoAlpha: 0,
-                y: 25,
-                duration: 0.7,
-                stagger: 0.15
-            }, "-=0.6");
-        }
-
-        // Description
-        const heroDescription = hero.querySelectorAll(".hero__description p");
-
-        if (heroDescription.length) {
-            heroTimeline.from(heroDescription, {
-                autoAlpha: 0,
-                y: 20,
-                duration: 0.7,
-                stagger: 0.2
-            }, "-=0.3");
-        }
-
-        // HERO CTA - Explore the course
-        // Target the exact link from your HTML
-        const heroButton = hero.querySelector('a[href="#course-program"]');
-
-        if (heroButton) {
-
-            // Keep button above the hero artwork
-            gsap.set(heroButton, {
-                position: "relative",
-                zIndex: 5,
-                autoAlpha: 1
-            });
-
-            // Animate button into view
-            heroTimeline.fromTo(
-                heroButton,
-                {
-                    autoAlpha: 0,
-                    y: 30,
-                    scale: 0.9
-                },
-                {
-                    autoAlpha: 1,
-                    y: 0,
-                    scale: 1,
-                    duration: 0.9,
-                    ease: "back.out(1.4)",
-                    onComplete: () => {
-                        gsap.set(heroButton, {
-                            autoAlpha: 1,
-                            clearProps: "transform"
-                        });
-                    }
-                },
-                "-=0.2"
-            );
-
-        } else {
-            console.warn("Hero CTA link not found.");
-        }
-
-
-        // Woman image
         const heroImage = hero.querySelector(".hero__img");
 
         if (heroImage) {
-
-            heroTimeline.from(heroImage, {
-                autoAlpha: 0,
-                x: 70,
-                duration: 1.6,
-                ease: "power2.out"
-            }, "-=0.4");
-
+            heroImage.loading = "eager";
+            heroImage.fetchPriority = "high";
         }
 
+        const waitForImage = (image) => {
+            if (!image) return Promise.resolve();
 
-        // Broken X mark
-        const heroX = hero.querySelector(".hero__x");
+            if (image.complete && image.naturalWidth > 0) {
+                return image.decode
+                    ? image.decode().catch(() => {})
+                    : Promise.resolve();
+            }
 
-        if (heroX) {
-            gsap.from(heroX, {
-                autoAlpha: 0,
-                scale: 0.5,
-                rotation: 35,
-                duration: 1,
-                delay: 0.5,
-                ease: "back.out(1.5)"
+            return new Promise((resolve) => {
+                const finish = () => {
+                    image.removeEventListener("load", finish);
+                    image.removeEventListener("error", finish);
+                    resolve();
+                };
+
+                image.addEventListener("load", finish, { once: true });
+                image.addEventListener("error", finish, { once: true });
+
+                if (image.complete) finish();
+
+            }).then(() => {
+                return image.decode
+                    ? image.decode().catch(() => {})
+                    : undefined;
             });
-        }
+        };
 
 
-        // Broken heart
-        const heroHeart = hero.querySelector(".hero__heart");
+        const startHeroAnimations = async () => {
 
-        if (heroHeart) {
+            await waitForImage(heroImage);
 
-            const heartBeat = gsap.timeline({
-                repeat: -1,
-                repeatDelay: 1.8,
-                delay: 1
+            const heroTimeline = gsap.timeline({
+                defaults: {
+                    ease: "power3.out"
+                }
             });
 
-            heartBeat
-                .to(heroHeart, {
-                    scale: 1.12,
-                    rotation: 5,
-                    duration: 0.35,
-                    ease: "power1.inOut"
-                })
-                .to(heroHeart, {
-                    scale: 1,
-                    rotation: -2,
-                    duration: 0.3
-                })
-                .to(heroHeart, {
-                    scale: 1.08,
-                    rotation: 3,
-                    duration: 0.25
-                })
-                .to(heroHeart, {
-                    scale: 1,
-                    rotation: 0,
-                    duration: 0.5
+
+            // Hero title
+            const heroTitle = hero.querySelector(".hero__title");
+
+            if (heroTitle) {
+                heroTimeline.from(heroTitle, {
+                    autoAlpha: 0,
+                    y: 45,
+                    duration: 1.2
+                });
+            }
+
+
+            // Hero information
+            const heroInfo = hero.querySelectorAll(".hero__info > div");
+
+            if (heroInfo.length) {
+                heroTimeline.from(heroInfo, {
+                    autoAlpha: 0,
+                    y: 25,
+                    duration: 0.7,
+                    stagger: 0.15
+                }, "-=0.6");
+            }
+
+
+            // Hero description
+            const heroDescription = hero.querySelectorAll(
+                ".hero__description p"
+            );
+
+            if (heroDescription.length) {
+                heroTimeline.from(heroDescription, {
+                    autoAlpha: 0,
+                    y: 20,
+                    duration: 0.7,
+                    stagger: 0.2
+                }, "-=0.3");
+            }
+
+
+            // Explore button - always visible
+            const heroButton =
+                hero.querySelector('a[href="#course-program"]') ||
+                hero.querySelector(
+                    ".hero__cta, .hero-banner__cta, .hero__button"
+                ) ||
+                Array.from(hero.querySelectorAll("a")).find((link) =>
+                    /explore.*course|course.*explore/i.test(
+                        link.textContent.trim()
+                    )
+                );
+
+            if (heroButton) {
+                gsap.set(heroButton, {
+                    position: "relative",
+                    zIndex: 10,
+                    autoAlpha: 1
+                });
+            }
+
+
+            // Woman image - original slow animation
+            if (heroImage) {
+                heroTimeline.from(heroImage, {
+                    autoAlpha: 0,
+                    x: 70,
+                    duration: 1.6,
+                    ease: "power2.out"
+                }, 0.4);
+            }
+
+
+            // Question marks
+            const questionMarks = hero.querySelectorAll(
+                ".hero__question-marks img, .hero__question-marks2 img"
+            );
+
+            if (questionMarks.length) {
+
+                gsap.set(questionMarks, {
+                    autoAlpha: 0,
+                    scale: 0.65,
+                    y: 18,
+                    transformOrigin: "50% 50%"
                 });
 
-        }
+                heroTimeline.to(questionMarks, {
+                    autoAlpha: 1,
+                    scale: 1,
+                    y: 0,
+                    duration: 0.75,
+                    stagger: 0.16,
+                    ease: "back.out(1.7)"
+                }, heroImage ? 2.0 : 0.1);
 
 
-        // Hero graffiti
-        const heroGraffiti = hero.querySelector(".hero__graffiti");
+                // Floating question marks
+                heroTimeline.call(() => {
 
-        if (heroGraffiti) {
+                    questionMarks.forEach((mark, index) => {
 
-            gsap.to(heroGraffiti, {
-                rotation: 2,
-                scale: 1.025,
-                duration: 1.8,
-                repeat: -1,
-                yoyo: true,
-                repeatDelay: 2.5,
-                ease: "sine.inOut",
-                transformOrigin: "80% 50%"
+                        gsap.to(mark, {
+                            y: index % 2 === 0 ? -10 : 10,
+                            rotation: index % 2 === 0 ? 5 : -5,
+                            duration: 2.5 + (index % 3) * 0.6,
+                            repeat: -1,
+                            yoyo: true,
+                            ease: "sine.inOut",
+                            delay: 0.15 * index
+                        });
+
+                    });
+
+                });
+
+            }
+
+
+            // Question boxes
+            const questionBoxes = gsap.utils.toArray(
+                ".hero__question-box1, .hero__question-box2, .hero__question-box3"
+            ).filter((box) => {
+                return (
+                    hero.contains(box) &&
+                    window.getComputedStyle(box).display !== "none"
+                );
             });
 
-        }
+            if (questionBoxes.length) {
+
+                gsap.set(questionBoxes, {
+                    autoAlpha: 0,
+                    y: 35,
+                    scale: 0.9
+                });
+
+                heroTimeline.to(questionBoxes, {
+                    autoAlpha: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.8,
+                    stagger: 0.25,
+                    ease: "power3.out"
+                }, questionMarks.length ? 2.2 : ">");
 
 
-        // Question marks
-        const questionMarks = hero.querySelectorAll(
-            ".hero__question-marks img, .hero__question-marks2 img"
-        );
+                // Floating question boxes
+                heroTimeline.call(() => {
 
-        questionMarks.forEach((mark, index) => {
+                    questionBoxes.forEach((box, index) => {
 
-            gsap.to(mark, {
-                y: index % 2 === 0 ? -10 : 10,
-                rotation: index % 2 === 0 ? 5 : -5,
-                duration: 2.5 + (index % 3) * 0.6,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut",
-                delay: index * 0.15 + 1
-            });
+                        gsap.to(box, {
+                            y: index % 2 === 0 ? -5 : 5,
+                            duration: 3 + index * 0.5,
+                            repeat: -1,
+                            yoyo: true,
+                            ease: "sine.inOut",
+                            delay: 0.3 + index * 0.3
+                        });
 
-        });
+                    });
+
+                });
+
+            }
 
 
-        // Question boxes
-        // Desktop and mobile images have duplicate classes.
-        // Animate only the currently visible versions.
-        const questionBoxes = gsap.utils.toArray(
-            ".hero__question-box1, .hero__question-box2, .hero__question-box3"
-        ).filter(box => window.getComputedStyle(box).display !== "none");
+            // Hero X mark
+            const heroX = hero.querySelector(".hero__x");
 
-        if (questionBoxes.length) {
+            if (heroX) {
+                heroTimeline.from(heroX, {
+                    autoAlpha: 0,
+                    scale: 0.5,
+                    rotation: 35,
+                    duration: 1,
+                    ease: "back.out(1.5)"
+                }, "-=0.5");
+            }
 
-            gsap.set(questionBoxes, {
-                autoAlpha: 0,
-                y: 35,
-                scale: 0.9
-            });
 
-            // Reveal AFTER the woman image animation finishes
-            heroTimeline.to(questionBoxes, {
-                autoAlpha: 1,
-                y: 0,
-                scale: 1,
-                duration: 0.8,
-                stagger: 0.25,
-                ease: "power3.out"
-            }, "+=0.15");
+            // Hero heart pulse
+            const heroHeart = hero.querySelector(".hero__heart");
 
-            // Gentle floating after reveal
-            questionBoxes.forEach((box, index) => {
+            if (heroHeart) {
 
-                gsap.to(box, {
-                    y: index % 2 === 0 ? -5 : 5,
-                    duration: 3 + index * 0.5,
+                const heartBeat = gsap.timeline({
+                    repeat: -1,
+                    repeatDelay: 1.8,
+                    delay: 0.2
+                });
+
+                heartBeat
+                    .to(heroHeart, {
+                        scale: 1.12,
+                        rotation: 5,
+                        duration: 0.35,
+                        ease: "power1.inOut"
+                    })
+                    .to(heroHeart, {
+                        scale: 1,
+                        rotation: -2,
+                        duration: 0.3
+                    })
+                    .to(heroHeart, {
+                        scale: 1.08,
+                        rotation: 3,
+                        duration: 0.25
+                    })
+                    .to(heroHeart, {
+                        scale: 1,
+                        rotation: 0,
+                        duration: 0.5
+                    });
+
+            }
+
+
+            // Hero graffiti
+            const heroGraffiti = hero.querySelector(".hero__graffiti");
+
+            if (heroGraffiti) {
+
+                gsap.to(heroGraffiti, {
+                    rotation: 2,
+                    scale: 1.025,
+                    duration: 1.8,
                     repeat: -1,
                     yoyo: true,
+                    repeatDelay: 2.5,
                     ease: "sine.inOut",
-                    delay: 3 + index * 0.3
+                    transformOrigin: "80% 50%"
                 });
 
-            });
-
-        }
+            }
 
 
-        // Hero ticker
-        const heroTicker = hero.querySelector(".ticker");
+            // Hero ticker
+            const heroTicker = hero.querySelector(".ticker");
 
-        if (heroTicker) {
+            if (heroTicker) {
 
-            gsap.to(heroTicker, {
-                x: 18,
-                duration: 12,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut"
-            });
+                gsap.to(heroTicker, {
+                    x: 18,
+                    duration: 12,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
 
-        }
+            }
+
+        };
+
+
+        startHeroAnimations();
 
     }
 
@@ -281,9 +337,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (courseSection) {
 
-        const courseText = courseSection.querySelector(".the-course__text");
-        const courseImage = courseSection.querySelector(".the-course__img");
-        const courseGraffiti = courseSection.querySelector(".the-course__graffiti");
+        const courseText = courseSection.querySelector(
+            ".the-course__text"
+        );
+
+        const courseImage = courseSection.querySelector(
+            ".the-course__img"
+        );
+
+        const courseGraffiti = courseSection.querySelector(
+            ".the-course__graffiti"
+        );
+
 
         const courseTimeline = gsap.timeline({
             scrollTrigger: {
@@ -293,16 +358,16 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        if (courseText) {
 
+        if (courseText) {
             courseTimeline.from(courseText, {
                 autoAlpha: 0,
                 y: 45,
                 duration: 1,
                 ease: "power3.out"
             });
-
         }
+
 
         if (courseImage) {
 
@@ -313,7 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ease: "power2.out"
             }, "-=0.6");
 
-            // Image parallax
+
             gsap.to(courseImage, {
                 yPercent: -5,
                 ease: "none",
@@ -327,6 +392,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
+
         if (courseGraffiti) {
 
             courseTimeline.from(courseGraffiti, {
@@ -337,7 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ease: "back.out(1.5)"
             }, "-=0.8");
 
-            // Occasional movement
+
             gsap.to(courseGraffiti, {
                 rotation: -3,
                 scale: 1.04,
@@ -356,7 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // =========================================================
-    // COURSE PROGRAM
+    // COURSE PROGRAM / FAQ
     // =========================================================
 
     const programSection = document.querySelector(".course-program");
@@ -379,6 +445,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ".accordion__item"
         );
 
+
         const programTimeline = gsap.timeline({
             scrollTrigger: {
                 trigger: programSection,
@@ -390,19 +457,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Section heading
         if (programHeading) {
-
             programTimeline.from(programHeading, {
                 autoAlpha: 0,
                 y: 25,
                 duration: 0.8
             });
-
         }
 
 
         // Course program graphic
         if (programImage) {
-
             programTimeline.from(programImage, {
                 autoAlpha: 0,
                 y: 45,
@@ -410,21 +474,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 duration: 1.1,
                 ease: "power3.out"
             }, "-=0.3");
-
         }
 
 
-        // Accordion items
+        // FAQ accordion - starts earlier
         if (accordionItems.length) {
-
             programTimeline.from(accordionItems, {
                 autoAlpha: 0,
                 y: 25,
                 duration: 0.6,
                 stagger: 0.15,
                 ease: "power2.out"
-            }, "-=0.3");
-
+            }, 0.65);
         }
 
 
@@ -438,6 +499,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 duration: 1,
                 ease: "back.out(1.7)"
             }, "-=0.9");
+
 
             gsap.to(programHeart, {
                 y: -12,
@@ -457,7 +519,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         if (enrollImage) {
-
             gsap.from(enrollImage, {
                 autoAlpha: 0,
                 x: -70,
@@ -470,7 +531,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     once: true
                 }
             });
-
         }
 
 
@@ -480,7 +540,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         if (enrollButton) {
-
             gsap.from(enrollButton, {
                 autoAlpha: 0,
                 x: 60,
@@ -493,7 +552,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     once: true
                 }
             });
-
         }
 
 
@@ -516,6 +574,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     once: true
                 }
             });
+
 
             gsap.to(programGraffiti, {
                 rotation: -2,
@@ -542,11 +601,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (footer) {
 
-        const footerTop = footer.querySelectorAll(".footer__top > div");
-        const footerBottom = footer.querySelector(".footer__bottom");
+        const footerTop = footer.querySelectorAll(
+            ".footer__top > div"
+        );
+
+        const footerBottom = footer.querySelector(
+            ".footer__bottom"
+        );
+
 
         if (footerTop.length) {
-
             gsap.from(footerTop, {
                 autoAlpha: 0,
                 y: 25,
@@ -559,11 +623,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     once: true
                 }
             });
-
         }
 
-        if (footerBottom) {
 
+        if (footerBottom) {
             gsap.from(footerBottom, {
                 autoAlpha: 0,
                 duration: 0.8,
@@ -574,7 +637,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     once: true
                 }
             });
-
         }
 
     }

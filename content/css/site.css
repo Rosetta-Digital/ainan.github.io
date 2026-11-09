@@ -701,18 +701,40 @@ a {
 }
 
 @media (min-width: 768px) and (max-width: 1025px) {
-     .hero__question-box1,  .hero__question-box2,  .hero__question-box3 {
+
+    .hero__question-box1,
+    .hero__question-box2,
+    .hero__question-box3 {
         transform: scale(1.5);
-     }
+    }
+
+    .hero__description {
+        max-width: 31vw;
+    }
+
+    .hero__question-box1 {
+        bottom: 6%;
+        right: 58%;
+    }
+
+    .hero__question-marks {
+        left: 16%;
+        bottom: 10%;
+    }
+
+    .hero__question-box2 {
+        bottom: 10%;
+        right: 33%;
+    }
+
+    .hero__question-box3 {
+        bottom: 12%;
+        right: 5%;
+    }
 }
 
 
 @media (max-width: 767px) {
-
-    .hero-banner {
-        min-height: 114vh;
-        padding: 7rem 0;
-    }
 
     .hide-mobile {
         display: none !important;
@@ -720,6 +742,25 @@ a {
 
     .show-mobile {
         display: inline-block !important;
+    }
+
+    .hero-banner {
+        /* min-height: 114vh; */
+        padding: 6rem 0;
+        min-height: 60rem;
+    }
+
+    .hero__title {
+        margin: 0 auto 2rem;
+        max-width: 90%;
+    }
+
+    .hero__info h2 {
+        font-size: 1.2rem;
+    }
+
+    .hero__info {
+        margin-bottom: 1rem;
     }
 
     .hero__img {
@@ -761,7 +802,7 @@ a {
     }
 
     .hero__description {
-        max-width: 33vw;
+        max-width: 37vw;
         position: relative;
         z-index: 2;
     }
@@ -829,7 +870,7 @@ a {
     }
 
     .the-course {
-        padding: 3rem 0 17rem;
+        padding: 3rem 0 19rem;
     }
 
     .the-course__img {
@@ -863,6 +904,10 @@ a {
     .footer {
         padding: 5rem 0 2rem 0;
         font-size: 0.9rem;
+    }
+
+    .footer .container {
+        width: 100%;
     }
 
 
