@@ -288,7 +288,7 @@ a {
     padding: 14rem 0;
     background: #212121 url('../images/the-course-bg.png') no-repeat center center;
     background-size: cover;
-    min-height: 110vh
+    min-height: 128vh
 }
 
 .the-course:before {
